@@ -1,7 +1,15 @@
-async function postData(url= '',data={}){
-    const response = await fetch(url,{
+
+async function postData(){
+    var dat = {
+        longUrl: document.getElementById('auto').value
+    //     // longUrl: "https://www.w3schools.com/tags/att_input_value.asp"
+        
+    }
+    // var dat = {"longUrl":"https://codeforces.com/"}
+    console.log(dat);
+    const response = await fetch('https://l-sh.herokuapp.com/api/url/shorten/',{
         method: 'POST',
-        mode: 'no-cors',
+        mode: 'cors',
         headers:{
             
             "Content-type": "application/json; charset=UTF-8"
@@ -11,30 +19,47 @@ async function postData(url= '',data={}){
         AccessControlAllowOrigin: '*',
         ReferrerPolicy: 'no-referrer',
         redirect: 'follow',
-        body: JSON.stringify(data)
+        body: JSON.stringify(dat)
+        
     });
     return response.json();
+    console.log(`data is recieved & data = ${dat.longUrl}`)
+    
+    if(response.ok) alert (response.json());
 }
 function print(){
    console.log("getElementById");
-   console.log(getElementById("auto"));
+   console.log(document.getElementById("auto").value);
 }
-postData('https://l-sh.herokuapp.com/api/url/shorten/',
-{"longUrl":"https://codeforces.com/"})
-.then(response => response.json()).
-then(data=>{console.log('Sucess: ',data);}).
-catch((err)=> {console.error('Error: ',err);});
+var output;
+
+function foo(){
+    postData().
+    then(data=>{
+        // console.log('Sucess: ',data);
+        output= data.shortUrl;
+        console.log(output);
+        alert(output);
+
+    }).
+    catch((err)=> {console.error('Error: ',err);});
+    // const p = document.createElement("p");
+    // const node = document.createTextNode(output[2];
+    // p.appendChild(node);
+    // document.getElementById("header").appendChild(p);
+}
 
 
+function f(){
 
+}
 
-// document.getElementById("subbb").addEventListener('click',
-// postData('https://l-sh.herokuapp.com/api/url/shorten/',{
-//     longUrl: document.getElementById("auto")
-// }).then(data => {
-//     console.log(data);
-// })
-// // print
+// postData();
+document.getElementById("subbb").addEventListener('click',foo);
+// postData
+
 // );
+// );
+// }));
 
 // document.getElementById("subbb").addEventListener('click',()=> console.log('hey'));
