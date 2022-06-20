@@ -1,5 +1,7 @@
 
 async function postData(){
+    document.getElementById('short').innerHTML = 'Loading...';
+
     var dat = {
         longUrl: document.getElementById('auto').value
     //     // longUrl: "https://www.w3schools.com/tags/att_input_value.asp"
@@ -39,7 +41,11 @@ function foo(){
         // console.log('Sucess: ',data);
         output= data.shortUrl;
         console.log(output);
-        alert(output);
+        if(!output){
+            output = 'INVALID LONG URL'
+        }
+        document.getElementById('short').innerHTML = output;
+        // alert(output);
 
     }).
     catch((err)=> {console.error('Error: ',err);});
